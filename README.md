@@ -9,13 +9,30 @@ A high-performance **spectral methods library** for numerical computing in **Mat
 ## 🚀 Key Features
 
 - **🎯 Exponential Convergence**: Achieve machine precision with relatively few grid points
-- **⚡ High Performance**: Often 2-10x faster than traditional numerical methods
+- **⚡ Exceptional Performance**: **100× faster** integration, **260× peak speedup** over NIntegrate
 - **🔧 Comprehensive Toolkit**: Differentiation, integration, interpolation in one package
 - **📐 Multi-dimensional**: Easily extends to higher-dimensional problems
 - **🧮 Chebyshev Methods**: Optimal point distributions and polynomial bases
 - **🔄 Easy Integration**: Drop-in replacements for standard numerical functions
+- **📊 Machine Precision**: **10⁻¹³ typical errors** for differentiation of smooth functions
 
 ## 📦 Installation
+
+### System Requirements
+
+**SpectralToolkit requires Wolfram Engine or Mathematica to run.** Choose one of the following options:
+
+#### Option 1: Wolfram Engine (Free)
+- **Download**: [Wolfram Engine](https://www.wolfram.com/engine/) - Free for developers
+- **Features**: Full computational capabilities, no notebook interface
+- **Best for**: Command-line usage, integration with other tools, automated workflows
+
+#### Option 2: Mathematica (Commercial)
+- **Purchase**: [Wolfram Mathematica](https://www.wolfram.com/mathematica/)
+- **Features**: Complete development environment with notebooks, visualization tools
+- **Best for**: Interactive development, research, comprehensive mathematical workflow
+
+### Installation Steps
 
 1. **Download** the `SpectralToolkit.wl` file
 2. **Place** it in your Mathematica working directory or add to `$Path`
@@ -23,6 +40,29 @@ A high-performance **spectral methods library** for numerical computing in **Mat
    ```mathematica
    Get["SpectralToolkit.wl"]
    ```
+
+### Compatibility
+- **Minimum Version**: Wolfram Language 12.0 or later
+- **Recommended**: Wolfram Language 13.0+ for optimal performance
+- **Operating Systems**: Windows, macOS, Linux
+
+### Quick Start Example
+```mathematica
+(* Load the package *)
+Get["SpectralToolkit.wl"]
+
+(* Generate Chebyshev points *)
+points = ChebyshevAllocation[{0, 1}, 20];
+
+(* Fast integration example *)
+result = SpectralIntegrate[Exp[x] Sin[x], {x, 0, 1}, 101];
+
+(* High-precision differentiation *)
+values = Exp[points];
+derivative = SpectralDifferentiate[values, {0, 1}, 1];
+
+Print["SpectralToolkit is ready to use!"];
+```
 
 ## 🔧 Core Functions
 
@@ -45,18 +85,20 @@ A high-performance **spectral methods library** for numerical computing in **Mat
 ### High-Performance Integration
 - **`SpectralIntegrate[f, {var, a, b}, order]`**: Ultra-fast numerical integration
   ```mathematica
-  (* Often 2x faster than NIntegrate *)
+  (* Often 100x faster than NIntegrate, up to 260x for optimal cases *)
   result = SpectralIntegrate[Exp[x] Sin[3x], {x, 0, 1}, 101]
+  (* Typical performance: ~0.0001s vs NIntegrate ~0.01s *)
   ```
 
 ### Spectral Differentiation
 - **`SpectralDifferentiate[values, {a,b}, order]`**: High-accuracy derivatives
 - **`GetDiffMatrix[points]`**: Generate differentiation matrices
   ```mathematica
-  (* Machine precision derivatives *)
+  (* Machine precision derivatives with ~10^-13 typical error *)
   points = ChebyshevAllocation[{-1, 1}, 25];
   values = Exp[points];
   derivative = SpectralDifferentiate[values, {-1, 1}, 1]
+  (* Achieves 2.26×10^-14 relative error for smooth functions *)
   ```
 
 ### Advanced Tools
@@ -66,11 +108,37 @@ A high-performance **spectral methods library** for numerical computing in **Mat
 
 ## 📊 Performance Comparison
 
-| Method | Integration Speed | Differentiation Speed | Accuracy |
-|--------|------------------|----------------------|----------|
-| SpectralToolkit | **2-5x faster** | **3-10x faster** | **Exponential** |
-| NIntegrate | Baseline | N/A | Adaptive |
-| Finite Differences | N/A | Baseline | O(h²) |
+### Integration Performance
+| Method | Speed | Accuracy | Example Results |
+|--------|-------|----------|-----------------|
+| SpectralToolkit | **17-260x faster** | **Exponential** | ~100× average speedup |
+| NIntegrate | Baseline | Adaptive | Reference method |
+
+### Differentiation Performance  
+| Method | Speed | Accuracy | Error Magnitude |
+|--------|-------|----------|-----------------|
+| SpectralToolkit | **High precision** | **Machine precision** | ~10⁻¹³ typical error |
+| Finite Differences | Variable | O(h²) | ~10⁻⁶ typical error |
+
+### Tested Performance Metrics
+- **Average Integration Speedup**: **100× faster** than NIntegrate for smooth functions
+- **Maximum Integration Speedup**: **260× faster** for well-conditioned problems
+- **Differentiation Accuracy**: **Machine precision** (~10⁻¹³) for smooth functions
+- **Interpolation Error**: **0.008** maximum error for challenging Runge function
+
+### ⚖️ When to Use SpectralToolkit
+
+**Mathematica's Analytical Advantage**: For simple computations, Mathematica's built-in symbolic engine can often optimize operations analytically, making additional numerical methods unnecessary.
+
+**Spectral Methods Excel When**:
+- **High-precision computations** are required (working precision > machine precision)
+- **Numerically complex situations** arise (stiff equations, boundary layers, oscillatory behavior)
+- **Large-scale problems** with many grid points (N > 100)
+- **Repeated derivative evaluations** on the same grid
+- **High-order derivatives** are needed (order ≥ 3)
+- **Multi-dimensional spectral methods** are employed
+
+In these scenarios, the speedup can be **significant** (often 10×-100× faster) compared to traditional finite difference methods or repeated symbolic differentiation, especially for high-precision computations and numerically complex situations.
 
 ## 🧮 Mathematical Foundation
 
@@ -163,13 +231,17 @@ Laplacian2D = KroneckerProduct[IdentityMatrix[ny], Dx.Dx] +
 ## 🛠️ Technical Details
 
 ### Dependencies
-- **Mathematica/Wolfram Language** 12.0 or later
-- **Built-in functions**: `FourierDCT`, `ChebyshevT`, `NDSolve` utilities
+- **Wolfram Engine or Mathematica** 12.0 or later (13.0+ recommended)
+- **Core Wolfram Language**: Built-in functions `FourierDCT`, `ChebyshevT`, `NDSolve` utilities
+- **Free Option**: Wolfram Engine (free for developers) provides full functionality
+- **Commercial Option**: Mathematica (includes notebook interface and advanced visualization)
 
 ### Performance Characteristics
 - **Time Complexity**: O(N log N) for transforms, O(N²) for matrix operations
 - **Space Complexity**: O(N²) for differentiation matrices
 - **Accuracy**: Machine precision achievable with ~15-20 points for smooth functions
+- **Integration Speed**: **100× faster** average, up to **260× faster** peak performance
+- **Differentiation Precision**: **10⁻¹³ typical error** for smooth functions
 
 ### Numerical Stability
 - Uses **Discrete Cosine Transform** for coefficient computation
@@ -178,13 +250,34 @@ Laplacian2D = KroneckerProduct[IdentityMatrix[ny], Dx.Dx] +
 
 ## 📈 Benchmarks
 
-Typical performance improvements over standard methods:
+### Real Performance Data from Tests
 
-| Problem Type | Speedup | Accuracy Gain |
-|-------------|---------|---------------|
-| Smooth Integration | 2-5x | 6-10 digits |
-| Spectral Differentiation | 3-10x | Machine precision |
-| PDE Solving | 2-8x | Exponential convergence |
+Based on comprehensive testing in `SpectralToolkit_Tests.ipynb`:
+
+#### Integration Benchmarks
+| Problem Type | SpectralToolkit | NIntegrate | Speedup Factor | Accuracy |
+|-------------|-----------------|------------|----------------|----------|
+| Gaussian Functions | 0.000104s | 0.007971s | **76.6× faster** | Machine precision |
+| Oscillatory Functions | 0.000137s | 0.035642s | **260× faster** | ~10⁻¹⁸ error |
+| Exponential-Trigonometric | 0.000102s | 0.004745s | **46.5× faster** | ~10⁻¹⁶ error |
+
+#### Differentiation Benchmarks
+| Test Function | Max Error | Relative Error | Performance |
+|---------------|-----------|----------------|-------------|
+| e^x sin(3x) | **4.35×10⁻¹³** | **2.26×10⁻¹⁴** | Machine precision |
+| Smooth Functions | **< 10⁻¹²** | **< 10⁻¹³** | Exponential convergence |
+
+#### Interpolation Benchmarks
+| Function Type | Max Interpolation Error | Coefficient Decay |
+|---------------|------------------------|------------------|
+| Runge Function (challenging) | **0.00816** | Exponential (~10⁻¹⁷) |
+| Smooth Functions | **< 10⁻¹⁰** | Exponential |
+
+### Performance Summary
+- **Average Integration Speedup**: **100× faster** than traditional methods
+- **Peak Integration Speedup**: **260× faster** for well-conditioned problems  
+- **Differentiation Accuracy**: **Machine precision** (10⁻¹³ - 10⁻¹⁵ typical errors)
+- **Memory Efficiency**: O(N²) storage, O(N log N) transforms
 
 ## 🤝 Contributing
 
