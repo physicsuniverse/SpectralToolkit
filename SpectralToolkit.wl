@@ -41,9 +41,8 @@ GetDiffMatrix[allocation_] :=
   NDSolve`FiniteDifferenceDerivative[Derivative[#], allocation, 
     "DifferenceOrder" -> "Pseudospectral"]["DifferentiationMatrix"] & /@ Range[0, 2]
 
-(* Implementation of ChebyshevAllocation *)
-ChebyshevAllocation[{a_, b_}, n_] := 
-  (b - a) Cos[Subdivide[0., Pi, n - 1]]/2 + (a + b)/2
+Clear[ChebyshevAllocation];
+ChebyshevAllocation[endpoint_, order_] := (Subtract @@ endpoint Cos[Subdivide[0., Pi, order - 1]] + Plus @@ endpoint)/2;
 
 (* Implementation of GetSpectral *)
 GetSpectral[values_, {a_, b_}, var_] := Module[
