@@ -4,6 +4,8 @@
 [![GitHub stars](https://img.shields.io/github/stars/physicsuniverse/SpectralToolkit)](https://github.com/physicsuniverse/SpectralToolkit/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/physicsuniverse/SpectralToolkit)](https://github.com/physicsuniverse/SpectralToolkit/issues)
 
+**Author**: [Peng Liu](https://github.com/physicsuniverse) - Working on holographic duality, black hole physics
+
 A high-performance **spectral methods library** for numerical computing in **Mathematica/Wolfram Language**. SpectralToolkit provides state-of-the-art pseudospectral techniques for differentiation, integration, and interpolation with **exponential accuracy** for smooth functions.
 
 ## 🚀 Key Features
@@ -132,10 +134,8 @@ Print["SpectralToolkit is ready to use!"];
 
 **Spectral Methods Excel When**:
 - **High-precision computations** are required (working precision > machine precision)
-- **Numerically complex situations** arise (stiff equations, boundary layers, oscillatory behavior)
 - **Large-scale problems** with many grid points (N > 100)
 - **Repeated derivative evaluations** on the same grid
-- **High-order derivatives** are needed (order ≥ 3)
 - **Multi-dimensional spectral methods** are employed
 
 In these scenarios, the speedup can be **significant** (often 10×-100× faster) compared to traditional finite difference methods or repeated symbolic differentiation, especially for high-precision computations and numerically complex situations.
@@ -310,7 +310,7 @@ If you use SpectralToolkit in your research, please cite:
 
 ```bibtex
 @software{spectraltoolkit,
-  author = {Your Name},
+  author = {Peng Liu},
   title = {SpectralToolkit: High-Performance Spectral Methods for Mathematica},
   url = {https://github.com/physicsuniverse/SpectralToolkit},
   year = {2025}

@@ -6,7 +6,9 @@
    A high-performance spectral methods library for numerical computing in Mathematica/Wolfram Language.
    This package provides tools for Chebyshev differentiation, spectral integration, and pseudospectral techniques.
    
-   Author: Your Name
+   Author: Peng Liu (physicsuniverse)
+   GitHub: https://github.com/physicsuniverse/SpectralToolkit
+   Bio: Working on holographic duality, black hole physics
    Version: 1.0.0
    Created: 2025-06-16
 *)
